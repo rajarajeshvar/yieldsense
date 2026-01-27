@@ -15,7 +15,7 @@
     "clsx": "^2.1.1",
     "next": "^15.5.6",
     "prism-react-renderer": "^2.4.1",
-    "react": "^19.2.0",
+    "react": "^19.2.4",
     "react-dom": "^19.2.4",
     "react-helmet-async": "^2.0.5",
     "react-markdown": "^10.1.0",
