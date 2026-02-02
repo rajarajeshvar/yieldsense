@@ -1375,10 +1375,10 @@
     "@codama/nodes" "1.5.0"
     "@codama/visitors-core" "1.5.0"
 
-"@codama/renderers-js@^1.6.1":
-  version "1.6.1"
-  resolved "https://registry.yarnpkg.com/@codama/renderers-js/-/renderers-js-1.6.1.tgz#902c5b13cec56aa990e76db2c434f712fdcafbee"
-  integrity sha512-uVxQ+rj64zd8fg523uxO6ArUX2RnttmrCNHZ8KKY4d2QkhSakXa7k1UJiRwGyqYaYgFiLflZGA8kgnLvShGkFA==
+"@codama/renderers-js@^1.6.2":
+  version "1.6.2"
+  resolved "https://registry.yarnpkg.com/@codama/renderers-js/-/renderers-js-1.6.2.tgz#6f24e6fa02416a7cc01f0e598159800945ed28a0"
+  integrity sha512-bfK4vW4KTDgjsEIKRQcUR5GR01bzgjATvEFpdeMhwUZl0737EHHo+j55khew+ubWVJm0VQv51WcSlgSTH0Yo+A==
   dependencies:
     "@codama/errors" "^1.4.4"
     "@codama/nodes" "^1.4.4"
