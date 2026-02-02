@@ -4936,10 +4936,10 @@
   resolved "https://registry.npmjs.org/@solana-program/token-2022/-/token-2022-0.4.2.tgz"
   integrity sha512-zIpR5t4s9qEU3hZKupzIBxJ6nUV5/UVyIT400tu9vT1HMs5JHxaTTsb5GUhYjiiTvNwU0MQavbwc4Dl29L0Xvw==
 
-"@solana-program/token-2022@^0.6.1":
-  version "0.6.1"
-  resolved "https://registry.yarnpkg.com/@solana-program/token-2022/-/token-2022-0.6.1.tgz#dcc44d56228e34c3b90099d9d3cab97d84c12367"
-  integrity sha512-Ex02cruDMGfBMvZZCrggVR45vdQQSI/unHVpt/7HPt/IwFYB4eTlXtO8otYZyqV/ce5GqZ8S6uwyRf0zy6fdbA==
+"@solana-program/token-2022@^0.8.0":
+  version "0.8.0"
+  resolved "https://registry.yarnpkg.com/@solana-program/token-2022/-/token-2022-0.8.0.tgz#cac96db3566f0e2b2d0ec6483360886704edf042"
+  integrity sha512-2K/eJjGJQ1LPTCdbytfleTcwyZBjojPIzu/vsvTxixwRxCgsEMvu+gNjvfxo/mi2liRHp0xsm2MR4XQJTM2OVQ==
 
 "@solana-program/token@^0.5.1":
   version "0.5.1"
