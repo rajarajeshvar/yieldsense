@@ -31,7 +31,7 @@
   "dependencies": {
     "@solana-program/address-lookup-table": "^0.10.0",
     "@solana-program/compute-budget": "^0.12.0",
-    "@solana-program/system": "^0.10.0"
+    "@solana-program/system": "^0.11.0"
   },
   "peerDependencies": {
     "@solana/kit": "^6.0.1",

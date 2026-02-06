@@ -5011,10 +5011,10 @@
   resolved "https://registry.npmjs.org/@solana-program/stake/-/stake-0.2.1.tgz"
   integrity sha512-ssNPsJv9XHaA+L7ihzmWGYcm/+XYURQ8UA3wQMKf6ccEHyHOUgoglkkDU/BoA0+wul6HxZUN0tHFymC0qFw6sg==
 
-"@solana-program/system@^0.10.0":
-  version "0.10.0"
-  resolved "https://registry.yarnpkg.com/@solana-program/system/-/system-0.10.0.tgz#f68ffb0a3e1c1d5e68ecfe111fbbe729f95a582a"
-  integrity sha512-Go+LOEZmqmNlfr+Gjy5ZWAdY5HbYzk2RBewD9QinEU/bBSzpFfzqDRT55JjFRBGJUvMgf3C2vfXEGT4i8DSI4g==
+"@solana-program/system@^0.11.0":
+  version "0.11.0"
+  resolved "https://registry.yarnpkg.com/@solana-program/system/-/system-0.11.0.tgz#1f29d8cfef41402cee2ed9bd29986a7a1f106af7"
+  integrity sha512-SJeQVTkqGZzIXd7XHlCxnfpKpvPZghB1IFwddPPG04ydVXtDLRWp9wLoTR5Prkl9FIWRe/c5VgT4nxyzW1cAuQ==
 
 "@solana-program/system@^0.7.0":
   version "0.7.0"
