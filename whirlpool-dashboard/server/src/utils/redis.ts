@@ -4,24 +4,22 @@ import dotenv from 'dotenv';
 dotenv.config();
 
 const redis = new Redis(process.env.REDIS_URL || 'redis://localhost:6379', {
-    maxRetriesPerRequest: null, // Allow queuing if down, but handled by fallback
+    maxRetriesPerRequest: 1, // Don't allow it to retry infinitely
     retryStrategy: (times) => {
-        return Math.min(times * 200, 10000);
+        if (times > 3) return null; // Stop retrying after 3 attempts
+        return Math.min(times * 200, 2000);
     },
-    enableOfflineQueue: true,
-    connectTimeout: 5000,
+    enableOfflineQueue: false, // Critical: Fail immediately if Redis is down, don't hang requests
+    connectTimeout: 2000,
 });
 
 export let isRedisDown = false;
 
 redis.on('error', (err) => {
-    if (err.message.includes('ECONNREFUSED') || err.message.includes('ETIMEDOUT')) {
-        if (!isRedisDown) {
-            console.error('[!!] Redis connection failed. Rate limiting will rely on in-memory fallback.');
-            isRedisDown = true;
-        }
-    } else {
-        console.error('[!] Redis Error:', err.message);
+    if (!isRedisDown) {
+        console.error('[!!] Redis connection failed:', err.message);
+        console.error('     Falling back to in-memory rate limiting and cache.');
+        isRedisDown = true;
     }
 });
 

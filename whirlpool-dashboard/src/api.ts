@@ -1,4 +1,4 @@
-const BACKEND_URL = 'https://yieldsense-backend-a8c2.onrender.com';
+const BACKEND_URL = import.meta.env.VITE_BACKEND_URL || 'http://127.0.0.1:3001';
 
 export interface PositionInfo {
     positionMint: string;

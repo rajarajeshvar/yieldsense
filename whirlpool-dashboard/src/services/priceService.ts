@@ -27,29 +27,7 @@ export async function getSOLPrice(): Promise<number> {
         return priceCache.solPrice;
     }
 
-    // Try CoinGecko first (simpler API, better CORS support)
-    try {
-        console.log('Price Service: Fetching from CoinGecko...');
-        const response = await fetch(
-            'https://api.coingecko.com/api/v3/simple/price?ids=solana&vs_currencies=usd',
-            {
-                method: 'GET',
-                headers: { 'Accept': 'application/json' }
-            }
-        );
 
-        if (response.ok) {
-            const data = await response.json();
-            const price = data.solana?.usd || 0;
-            if (price > 0) {
-                console.log('Price Service: Got SOL price from CoinGecko:', price);
-                priceCache = { solPrice: price, timestamp: now };
-                return price;
-            }
-        }
-    } catch (error) {
-        console.warn('Price Service: CoinGecko failed:', error);
-    }
 
     // Fallback to Jupiter
     try {
@@ -127,7 +105,7 @@ export async function getTokenPrice(symbol: string): Promise<number> {
     // 1. Try Jupiter first
     try {
         const controller = new AbortController();
-        const timeoutId = setTimeout(() => controller.abort(), 5000);
+        const timeoutId = setTimeout(() => controller.abort(), 15000); // 15s timeout
 
         // Jupiter handles most Solana tokens by symbol or address
         const response = await fetch(
@@ -147,31 +125,7 @@ export async function getTokenPrice(symbol: string): Promise<number> {
         console.warn(`Price Service: Jupiter failed for ${symbol}:`, error);
     }
 
-    // 2. Fallback to CoinGecko (using manual mapping if available)
-    try {
-        // Simple mapping for common missing tokens
-        const geckoIds: Record<string, string> = {
-            'PENGU': 'pudgy-penguins',
-            'JUP': 'jupiter-exchange-solana',
-            'JUPSOL': 'jupiter-staked-sol',
-            'WIF': 'dogwifhat',
-            'BONK': 'bonk'
-        };
 
-        const geckoId = geckoIds[symbol.toUpperCase()] || symbol.toLowerCase();
-
-        const response = await fetch(
-            `https://api.coingecko.com/api/v3/simple/price?ids=${geckoId}&vs_currencies=usd`
-        );
-
-        if (response.ok) {
-            const data = await response.json();
-            const price = data[geckoId]?.usd || 0;
-            if (price > 0) return price;
-        }
-    } catch (e) {
-        console.warn(`Price Service: CoinGecko fallback failed for ${symbol}`, e);
-    }
 
     // 3. Fallback to DexScreener (Search by symbol)
     try {

@@ -410,8 +410,8 @@ async def analyze_sentiment_detailed(headlines: List[str]) -> Dict[str, Any]:
             attention_mask = np.ones((1, 128), dtype=np.int64)
             
         ort_inputs = {
-            'input_ids': input_ids,
-            'attention_mask': attention_mask
+            'input_ids': input_ids.astype(np.int64),
+            'attention_mask': attention_mask.astype(np.int64)
         }
         ort_outs = sentiment_session.run(None, ort_inputs)
         logits = ort_outs[0]

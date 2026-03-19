@@ -23,7 +23,7 @@ export interface UseWebSocketReturn {
     unsubscribe: () => void;
 }
 
-const WS_URL = 'wss://yieldsense-backend-a8c2.onrender.com';
+const WS_URL = import.meta.env.VITE_BACKEND_WS_URL || 'ws://127.0.0.1:3001';
 
 export const useWebSocket = (options?: Partial<UseWebSocketOptions>): UseWebSocketReturn => {
     const [isConnected, setIsConnected] = useState(false);
@@ -36,6 +36,13 @@ export const useWebSocket = (options?: Partial<UseWebSocketOptions>): UseWebSock
     const url = options?.url ?? WS_URL;
     const reconnectDelay = options?.reconnectDelay ?? 3000;
     const maxReconnectAttempts = options?.maxReconnectAttempts ?? 10;
+
+    const optionsRef = useRef(options);
+
+    // Always keep the latest options in the ref without triggering a re-render
+    useEffect(() => {
+        optionsRef.current = options;
+    }, [options]);
 
     const connect = useCallback(() => {
         // Clean up existing connection
@@ -51,14 +58,14 @@ export const useWebSocket = (options?: Partial<UseWebSocketOptions>): UseWebSock
                 console.log('WebSocket connected');
                 setIsConnected(true);
                 reconnectAttempts.current = 0;
-                options?.onConnect?.();
+                optionsRef.current?.onConnect?.();
             };
 
             ws.onmessage = (event) => {
                 try {
                     const message: WSMessage = JSON.parse(event.data);
                     setLastMessage(message);
-                    options?.onMessage?.(message);
+                    optionsRef.current?.onMessage?.(message);
                 } catch (error) {
                     console.error('Failed to parse WebSocket message:', error);
                 }
@@ -67,7 +74,7 @@ export const useWebSocket = (options?: Partial<UseWebSocketOptions>): UseWebSock
             ws.onclose = () => {
                 console.log('WebSocket disconnected');
                 setIsConnected(false);
-                options?.onDisconnect?.();
+                optionsRef.current?.onDisconnect?.();
 
                 // Attempt reconnection
                 if (reconnectAttempts.current < maxReconnectAttempts) {
@@ -83,7 +90,7 @@ export const useWebSocket = (options?: Partial<UseWebSocketOptions>): UseWebSock
         } catch (error) {
             console.error('Failed to create WebSocket:', error);
         }
-    }, [url, reconnectDelay, maxReconnectAttempts, options]);
+    }, [url, reconnectDelay, maxReconnectAttempts]); // removed options from dependencies
 
     // Connect on mount
     useEffect(() => {
@@ -104,7 +111,9 @@ export const useWebSocket = (options?: Partial<UseWebSocketOptions>): UseWebSock
         if (wsRef.current?.readyState === WebSocket.OPEN) {
             wsRef.current.send(JSON.stringify(message));
         } else {
-            console.warn('WebSocket not connected, cannot send message');
+            if (message?.type !== 'UNSUBSCRIBE') {
+                console.warn(`WebSocket not connected (state ${wsRef.current?.readyState}), dropped message:`, message?.type || message);
+            }
         }
     }, []);
 
