@@ -19,7 +19,7 @@
     "js-convert-case": "^4.2.0",
     "prompts": "^2.4.2",
     "wasm-pack": "0.14.0",
-    "yaml": "^2.8.1"
+    "yaml": "^2.8.3"
   },
   "devDependencies": {
     "@types/prompts": "^2.4.9",
