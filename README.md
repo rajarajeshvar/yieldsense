@@ -179,7 +179,7 @@ powershell -ExecutionPolicy Bypass -File start_services.ps1
 ## Security
 
 - **Client-Side Signing**: No private keys are stored on servers
-- **Environment Variables**: All secrets are managed through environment configuration
+- **Environment Variables**: No hardcoded keys, All secrets are managed through environment configuration
 - **Rate Limiting**: Configured RPC endpoints with appropriate limits
 
 ---
